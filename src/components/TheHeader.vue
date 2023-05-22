@@ -7,9 +7,9 @@
     <v-icon class="header__icon header__notification" icon="mdi-bell"></v-icon>
     <v-icon class="header__icon header__cart" icon="mdi-cart"></v-icon>
   </div>
-  <v-tabs v-model="tab">
-    <v-tab value="one">мои компании</v-tab>
-    <v-tab value="two">мои менеджеры</v-tab>
+  <v-tabs class="custom-button">
+    <v-tab>мои компании</v-tab>
+    <v-tab selected>мои менеджеры</v-tab>
   </v-tabs>
 </template>
 
@@ -45,7 +45,11 @@
 :deep(.v-slide-group__content) {
   justify-content: center;
 }
-:deep(.v-btn__content) {
-  letter-spacing: 2px;
+:deep(.v-tab__slider) {
+  background: #1976d2 !important;
+}
+.v-slide-group-item--active {
+  color: #1976d2;
+  background-color: #eff5ff;
 }
 </style>

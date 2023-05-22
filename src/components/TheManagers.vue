@@ -65,29 +65,36 @@ onMounted(() => {
         v-model="searchString"
         placeholder="Быстрый поиск"
         prepend-inner-icon="mdi-magnify"
-        variant="outlined"
+        variant="text"
+        density="compact"
         hide-details
       ></v-text-field>
     </div>
-    <div class="manager__group">
-      <v-btn prepend-icon="mdi-filter-variant" class="rounded-xl text-capitalize" variant="tonal">
+    <div class="manager__group mb-3">
+      <v-btn
+        prepend-icon="mdi-filter-variant"
+        class="rounded-xl text-capitalize custom-button manager__filter font-weight-regular"
+        color="grey-darken-2"
+        variant="tonal"
+      >
         <template v-slot:prepend>
           <v-icon class="manager__icon"></v-icon>
         </template>
         Фильтр
         <template v-slot:append>
-          <v-badge color="error" content="1" inline></v-badge>
+          <v-badge color="blue-darken-2" content="1  " inline></v-badge>
         </template>
       </v-btn>
       <v-btn
         prepend-icon="mdi-plus"
-        class="rounded-xl text-capitalize"
+        class="rounded-xl text-capitalize custom-button manager__add bg-blue-darken-2 font-weight-regular"
+        color="white"
         variant="tonal"
         @click="openCreateManager"
         rounded-xl
       >
         <template v-slot:prepend>
-          <v-icon class="manager__icon"></v-icon>
+          <v-icon color="white" class="manager__icon"></v-icon>
         </template>
         Добавить
       </v-btn>
@@ -99,7 +106,6 @@ onMounted(() => {
       :items-per-page="itemsPerPage"
       item-value="name"
       :search="searchString"
-      class="elevation-1"
       @update:options="onOptionsUpdate"
       density="compact"
       width="100"
@@ -112,7 +118,13 @@ onMounted(() => {
         <TablePagination v-model="page" v-model:itemsPerPage="itemsPerPage" :length="pageCount" />
       </template>
       <template v-slot:item.isActive="{ item }">
-        <v-switch v-model="item.raw.isActive" inset hide-details density="comfortable"></v-switch
+        <v-switch
+          color="blue-darken-2"
+          v-model="item.raw.isActive"
+          inset
+          hide-details
+          density="comfortable"
+        ></v-switch
       ></template>
       <template v-slot:item.name="{ item }">
         <div class="font-weight-bold">{{ item.raw.name }}</div>
@@ -177,6 +189,7 @@ onMounted(() => {
   padding-right: 0;
 }
 .v-table > .v-table__wrapper > table > tbody > tr > td:nth-child(2) {
+  font-size: 13px;
   padding-left: 0;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -191,5 +204,41 @@ onMounted(() => {
 .v-switch__thumb {
   height: 16px !important;
   width: 16px !important;
+}
+.v-table .v-data-table-header__sort-icon,
+.v-data-table-header__content {
+  font-size: 12px;
+  color: #3c3f41;
+}
+.v-badge__badge {
+  font-size: 10px;
+  border-radius: 10px !important;
+  height: 16px !important;
+}
+.v-switch__track {
+  background-color: #b0bec5 !important;
+}
+.v-selection-control--dirty .v-switch__track {
+  background-color: #cadeff !important;
+}
+.v-table .v-table__wrapper > table > tbody > tr:not(:last-child) > td,
+.v-table .v-table__wrapper > table > tbody > tr:not(:last-child) > th {
+  border-bottom: unset;
+}
+.v-table .v-table__wrapper > table > thead > tr > th {
+  border-bottom: unset;
+}
+
+.v-field__outline {
+  border: 1px solid #dde2e5;
+  border-radius: 4px;
+}
+.v-btn {
+  min-width: 0;
+}
+.manager__group :deep(.v-btn) {
+  padding-left: 16px;
+  padding-right: 16px;
+  width: 112px;
 }
 </style>
