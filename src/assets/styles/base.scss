@@ -1,0 +1,32 @@
+html,
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  color: inherit;
+  text-decoration-line: inherit;
+  &:hover {
+    color: #717475;
+  }
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+p {
+  font-weight: 500;
+  font-size: 1rem;
+}
