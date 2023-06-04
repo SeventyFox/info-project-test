@@ -21,6 +21,12 @@ export const useManagersStore = defineStore('managers', {
     },
     createManager(manager) {
       this.managers.push({ ...manager, id: crypto.randomUUID() })
+    },
+    importManager(importedManagers) {
+      importedManagers.forEach((importedManager) =>
+        this.managers.push({ ...importedManager, id: Number(importedManager.id) })
+      )
+      console.log(this.managers)
     }
   }
 })

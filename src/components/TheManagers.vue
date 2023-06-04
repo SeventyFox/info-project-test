@@ -4,6 +4,8 @@ import { VDataTable } from 'vuetify/labs/VDataTable'
 import { useManagersStore } from '../stores/store.js'
 import ManagerModal from './ManagerModal.vue'
 import TablePagination from './TablePagination.vue'
+import { parse, unparse } from 'papaparse'
+import { format } from 'date-fns'
 
 const managersStore = useManagersStore()
 
@@ -29,6 +31,43 @@ const openCreateManager = () => {
 
 const deleteManager = (id) => {
   managersStore.removeManager(id)
+}
+
+const csvData = ref([])
+
+const handleFileUpload = (event) => {
+  const file = event.target.files[0]
+  parse(file, {
+    header: true,
+    complete: (results) => {
+      csvData.value = results.data
+      managersStore.importManager(csvData.value)
+      pageCount.value = Math.ceil(managersStore.managers.length / itemsPerPage.value)
+    }
+  })
+}
+
+const exportManagers = () => {
+  const unparsedData = unparse(managersStore.managers, {
+    quotes: false,
+    quoteChar: '"',
+    escapeChar: '"',
+    delimiter: ',',
+    header: true,
+    newline: '\r\n',
+    skipEmptyLines: false,
+    columns: null
+  })
+  const data = unparsedData
+  const blob = new Blob([data], { type: 'text/plain' })
+
+  const a = document.createElement('a')
+  a.download = `exportManagers_${format(new Date(), 'dd-MM-yyyy-h-m-s')}`
+  a.href = URL.createObjectURL(blob)
+  a.dataset.downloadurl = ['text/json', a.download, a.href].join(':')
+
+  const event = new MouseEvent('click')
+  a.dispatchEvent(event)
 }
 
 const onOptionsUpdate = (_options) => {
@@ -99,6 +138,19 @@ onMounted(() => {
         Добавить
       </v-btn>
     </div>
+    <div class="d-flex justify-space-between mb-3 manager__import">
+      <v-file-input
+        class="manager__file-input"
+        @change="handleFileUpload"
+        hide-details
+        dense
+        accept=".csv"
+        label="Импортировать"
+        variant="outlined"
+      />
+      <v-btn @click="exportManagers">Экспорт</v-btn>
+    </div>
+
     <v-data-table
       v-model:page="page"
       :headers="tableHeaders"
@@ -173,6 +225,12 @@ onMounted(() => {
   }
   &__search {
     margin: 15px 16px;
+  }
+  &__file-input {
+    max-width: 200px;
+  }
+  &__import {
+    margin: 0 16px;
   }
 }
 .v-data-table .v-table__wrapper > table > thead > tr th {
