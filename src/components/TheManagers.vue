@@ -99,6 +99,16 @@ onMounted(() => {
 
 <template>
   <div>
+    <div class="header">
+      <v-icon class="header__icon header__burger" icon="mdi-text"></v-icon>
+      <h4 class="header__title">Управление компанией</h4>
+      <v-icon class="header__icon header__notification" icon="mdi-bell"></v-icon>
+      <v-icon class="header__icon header__cart" icon="mdi-cart"></v-icon>
+    </div>
+    <v-tabs class="custom-button">
+      <v-tab>мои компании</v-tab>
+      <v-tab selected>мои менеджеры</v-tab>
+    </v-tabs>
     <div class="manager__search">
       <v-text-field
         v-model="searchString"
@@ -207,9 +217,52 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
+.header {
+  display: flex;
+  padding: 10px 15px;
+  justify-content: space-between;
+  &__icon {
+    color: #717475;
+  }
+  &__burger {
+    margin-right: 52px;
+  }
+  &__title {
+    width: 175px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__notification {
+    margin-left: 12px;
+  }
+  &__cart {
+    margin-left: 22px;
+  }
+  &__button-group {
+    display: flex;
+    justify-content: center;
+    margin: 10px 16px 15px 16px;
+  }
+}
+
+:deep(.v-slide-group__content) {
+  justify-content: center;
+}
+
+:deep(.v-tab__slider) {
+  background: #1976d2 !important;
+}
+
+.v-slide-group-item--active {
+  color: #1976d2;
+  background-color: #eff5ff;
+}
+
 :deep(.v-btn) {
   letter-spacing: 0.25px !important;
 }
+
 .manager {
   &__card {
     display: flex;
@@ -233,56 +286,70 @@ onMounted(() => {
     margin: 0 16px;
   }
 }
+
 .v-data-table .v-table__wrapper > table > thead > tr th {
   background-color: #dde2e5;
 }
+
 .v-data-table-header__sort-icon {
   font-size: 14px;
   margin-left: 10px;
 }
+
 .v-table > .v-table__wrapper > table > thead > tr > th:nth-child(2) {
   padding-left: 0px;
 }
+
 .v-table > .v-table__wrapper > table > tbody > tr > td {
   padding-right: 0;
 }
+
 .v-table > .v-table__wrapper > table > tbody > tr > td:nth-child(2) {
   font-size: 13px;
   padding-left: 0;
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
 .v-table > .v-table__wrapper > table > tbody > tr > td:nth-child(3) {
   padding-left: 0;
 }
+
 .v-switch--inset .v-switch__track {
   height: 22px !important;
   width: 42px !important;
 }
+
 .v-switch__thumb {
   height: 16px !important;
   width: 16px !important;
 }
+
 .v-table .v-data-table-header__sort-icon,
 .v-data-table-header__content {
   font-size: 12px;
   color: #3c3f41;
 }
+
 .v-badge__badge {
   font-size: 10px;
   border-radius: 10px !important;
   height: 16px !important;
 }
+
 .v-switch__track {
   background-color: #b0bec5 !important;
 }
+
 .v-selection-control--dirty .v-switch__track {
   background-color: #cadeff !important;
 }
+
 .v-table .v-table__wrapper > table > tbody > tr:not(:last-child) > td,
 .v-table .v-table__wrapper > table > tbody > tr:not(:last-child) > th {
   border-bottom: unset;
 }
+
 .v-table .v-table__wrapper > table > thead > tr > th {
   border-bottom: unset;
 }
@@ -291,9 +358,11 @@ onMounted(() => {
   border: 1px solid #dde2e5;
   border-radius: 4px;
 }
+
 .v-btn {
   min-width: 0;
 }
+
 .manager__group :deep(.v-btn) {
   padding-left: 16px;
   padding-right: 16px;

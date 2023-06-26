@@ -2,6 +2,7 @@ import '@/assets/styles/main.scss'
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 import VuePapaParse from 'vue-papa-parse'
+import router from '@/router'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -20,6 +21,7 @@ const vuetify = createVuetify({
 const app = createApp(App)
 
 app.use(vuetify)
+app.use(router)
 app.use(VuePapaParse)
 app.use(createPinia())
 
